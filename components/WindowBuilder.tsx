@@ -1,5 +1,3 @@
-
-
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import type { QuoteItem, ProductProfile, FrameDivision, PlacedSash, Currency, GlazingBar, Material, WindowInstance, SashSectionOverrides, Ironmongery, ProductProfileLayout, SashInfo, ProductRange, ComponentTemplate, FrameInfo, FrameSideProfile } from '../types';
 import { SaveIcon, TrashIcon, PlusIcon, ArrowLeftIcon, GridIcon, SashWindowIcon, DoorIcon, PanelIcon, ChevronLeftIcon, ChevronRightIcon, ArrowsPointingOutIcon, XMarkIcon, ClipboardDocumentIcon, UndoIcon } from './icons';
@@ -693,7 +691,7 @@ export function WindowBuilder({
   const [selectedPaneId, setSelectedPaneId] = useState<string | null>(null);
   const [isAutoSplit, setIsAutoSplit] = useState(true);
   const lastValidLayout = useRef<{ mullions: FrameDivision[], transoms: FrameDivision[], innerWidth: number, innerHeight: number } | null>(null);
-  const [dimensionVisibility, setDimensionVisibility] = useState({ frame: true, sash: false, glass: false });
+  const [dimensionVisibility, setDimensionVisibility] = useState({ frame: true, sash: false, glass: false, divisions: false });
   const [componentApplicability, setComponentApplicability] = useState<('Sash' | 'Casement' | 'Door' | 'Screen')[]>([]);
 
   const designerTitle = useMemo(() => {
@@ -2573,4 +2571,15 @@ export function WindowBuilder({
                                 onChange={checked => setDimensionVisibility(v => ({...v, sash: checked}))}
                             />
                              <Checkbox 
-                               
+								label="Mullion / Transom"
+								checked={dimensionVisibility.divisions}
+								onChange={checked => setDimensionVisibility(v => ({...v, divisions: checked}))}
+							/>
+						</div>
+					</SidebarSection>
+				</div>
+			</aside>
+		</div>
+	</div>
+);
+}
