@@ -1,0 +1,8 @@
+{
+  "name": "Sash Style Pro",
+  "description": "An all-in-one solution for window and door professionals to create quotes, manage clients, and streamline sales follow-ups. Features include line-item quoting, a simple CRM, a visual style selector, and AI-powered email generation.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "prompt": ""
+}
