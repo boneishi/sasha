@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import type { Staff, CompanyDocument, Team, Permission, ProductProfile, Material, SystemSettings, Role, EmailTemplate, ProductRange, ComponentTemplate } from '../types';
-import { UserGroupIcon, Cog6ToothIcon, GlassIcon, ShieldCheckIcon, EnvelopeIcon, BookOpenIcon, CodeBracketIcon, FunnelIcon, SashWindowIcon, CasementWindowIcon, DoorIcon, ViewColumnsIcon, SquaresPlusIcon, BuildingOfficeIcon } from './icons';
+import { UserGroupIcon, Cog6ToothIcon, GlassIcon, ShieldCheckIcon, EnvelopeIcon, BookOpenIcon, CodeBracketIcon, FunnelIcon, SashWindowIcon, CasementWindowIcon, DoorIcon, ViewColumnsIcon, SquaresPlusIcon, BuildingOfficeIcon, ClipboardCheckIcon } from './icons';
 import { StaffAndRolesSection } from './SystemViewStaff';
 import { SystemViewProductTemplates } from './SystemViewProfiles';
 import { SettingsSection } from './SystemViewSettings';
@@ -126,4 +126,48 @@ export const SystemView: React.FC<SystemViewProps> = (props) => {
             case 'project': return <SystemViewProjectSettings
                     systemSettings={props.systemSettings}
                     setSystemSettings={props.setSystemSettings}
-                    
+                    hasPermission={props.hasPermission}
+                    onBack={() => setActiveTab('settings')}
+            />;
+            case 'invoicing': return <SystemViewInvoicing
+                    systemSettings={props.systemSettings}
+                    setSystemSettings={props.setSystemSettings}
+                    hasPermission={props.hasPermission}
+            />;
+            case 'email_smtp': return <SystemViewEmail
+                    systemSettings={props.systemSettings}
+                    setSystemSettings={props.setSystemSettings}
+                    hasPermission={props.hasPermission}
+                    onBack={() => setActiveTab('settings')}
+            />;
+            case 'developer': return <SystemViewDeveloper
+                    systemSettings={props.systemSettings}
+                    setSystemSettings={props.setSystemSettings}
+            />;
+            default: return null;
+        }
+    };
+
+    return (
+        <div className="p-6">
+            <div className="flex items-center gap-2 mb-6">
+                <TabButton icon={UserGroupIcon} active={activeTab === 'staff'} onClick={() => setActiveTab('staff')}>Staff</TabButton>
+                <TabButton icon={SashWindowIcon} active={activeTab === 'profiles-sash'} onClick={() => setActiveTab('profiles-sash')}>Profiles (Sash)</TabButton>
+                <TabButton icon={CasementWindowIcon} active={activeTab === 'profiles-casement'} onClick={() => setActiveTab('profiles-casement')}>Profiles (Casement)</TabButton>
+                <TabButton icon={DoorIcon} active={activeTab === 'profiles-door'} onClick={() => setActiveTab('profiles-door')}>Profiles (Door)</TabButton>
+                <TabButton icon={ViewColumnsIcon} active={activeTab === 'profiles-screen'} onClick={() => setActiveTab('profiles-screen')}>Profiles (Screen)</TabButton>
+                <TabButton icon={SquaresPlusIcon} active={activeTab === 'components'} onClick={() => setActiveTab('components')}>Components</TabButton>
+                <TabButton icon={GlassIcon} active={activeTab === 'materials'} onClick={() => setActiveTab('materials')}>Materials</TabButton>
+                <TabButton icon={FunnelIcon} active={activeTab === 'ranges'} onClick={() => setActiveTab('ranges')}>Ranges</TabButton>
+                <TabButton icon={Cog6ToothIcon} active={activeTab === 'settings'} onClick={() => setActiveTab('settings')}>Settings</TabButton>
+                <TabButton icon={BuildingOfficeIcon} active={activeTab === 'project'} onClick={() => setActiveTab('project')}>Project</TabButton>
+                <TabButton icon={ClipboardCheckIcon} active={activeTab === 'invoicing'} onClick={() => setActiveTab('invoicing')}>Invoicing</TabButton>
+                <TabButton icon={EnvelopeIcon} active={activeTab === 'email_smtp'} onClick={() => setActiveTab('email_smtp')}>Email</TabButton>
+                <TabButton icon={CodeBracketIcon} active={activeTab === 'developer'} onClick={() => setActiveTab('developer')}>Developer</TabButton>
+            </div>
+            <div>
+                {renderContent()}
+            </div>
+        </div>
+    );
+};
